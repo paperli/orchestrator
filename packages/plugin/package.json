@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "npm run build:code && npm run build:ui && npm run build:inline",
-    "build:code": "esbuild src/code.ts --bundle --outfile=dist/code.js --target=es2017 --format=esm --external:@orchestrator/shared",
+    "build:code": "esbuild src/code.ts --bundle --outfile=dist/code.js --target=es2017 --format=iife --external:@figma/plugin-typings",
     "build:ui": "vite build --config vite.config.ui.ts",
     "build:inline": "node scripts/inline-ui.js",
     "dev": "npm run build",
