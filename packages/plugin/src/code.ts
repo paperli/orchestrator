@@ -137,9 +137,12 @@ function handleGetSelectedNode() {
  */
 async function handleSaveConfig(config: PrototypeConfig) {
   try {
+    console.log('[Main Thread] handleSaveConfig called:', config);
+
     // Validate config
     const validation = validateConfig(config);
     if (!validation.success) {
+      console.error('[Main Thread] Validation failed:', validation.error);
       figma.ui.postMessage({
         type: 'SAVE_ERROR',
         error: 'Invalid configuration: ' + validation.error.message,
@@ -149,12 +152,24 @@ async function handleSaveConfig(config: PrototypeConfig) {
 
     // Save to plugin data
     await saveConfig(config);
+    console.log('[Main Thread] Config saved to plugin data');
 
-    figma.notify('Configuration saved successfully');
+    figma.notify('Configuration saved successfully ✓');
+
+    // Send both success message and updated config
     figma.ui.postMessage({
       type: 'SAVE_SUCCESS',
     });
+
+    figma.ui.postMessage({
+      type: 'CONFIG_UPDATED',
+      config,
+    });
+
+    console.log('[Main Thread] Sent CONFIG_UPDATED to UI');
   } catch (error) {
+    console.error('[Main Thread] Save error:', error);
+    figma.notify('Failed to save configuration', { error: true });
     figma.ui.postMessage({
       type: 'SAVE_ERROR',
       error: error instanceof Error ? error.message : 'Failed to save',

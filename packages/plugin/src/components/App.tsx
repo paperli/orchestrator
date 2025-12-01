@@ -52,6 +52,23 @@ export function App() {
           setIsLoading(false);
           break;
 
+        case 'SAVE_SUCCESS':
+          console.log('[UI] Config saved successfully');
+          // The main thread will send updated config, so wait for that
+          break;
+
+        case 'SAVE_ERROR':
+          console.error('[UI] Save error:', msg.error);
+          setError(msg.error);
+          break;
+
+        case 'CONFIG_UPDATED':
+          console.log('[UI] Config updated:', msg.config);
+          setConfig(msg.config);
+          // Navigate to Rules after successful save
+          setCurrentSection('rules');
+          break;
+
         case 'ERROR':
           console.error('[UI] Error:', msg.error);
           setError(msg.error);
