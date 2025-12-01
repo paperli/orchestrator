@@ -8,6 +8,8 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
+    target: 'es2017', // Better browser compatibility
+    minify: 'esbuild',
     rollupOptions: {
       input: {
         code: path.resolve(__dirname, 'src/code.ts'),
@@ -16,6 +18,7 @@ export default defineConfig({
       output: {
         entryFileNames: '[name].js',
         assetFileNames: '[name].[ext]',
+        format: 'es',
       },
     },
   },
