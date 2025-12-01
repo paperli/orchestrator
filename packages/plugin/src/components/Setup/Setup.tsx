@@ -18,6 +18,7 @@ export function Setup() {
   const [tvFrameName, setTvFrameName] = useState<string>('');
   const [phoneFrameId, setPhoneFrameId] = useState<string>('');
   const [phoneFrameName, setPhoneFrameName] = useState<string>('');
+  const [fileKey, setFileKey] = useState<string>('');
   const [selectingDevice, setSelectingDevice] = useState<SelectingDevice>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,8 +29,16 @@ export function Setup() {
       setTvFrameName(config.devices.tv.startingFrameName);
       setPhoneFrameId(config.devices.phone.startingFrameId);
       setPhoneFrameName(config.devices.phone.startingFrameName);
+      setFileKey(config.fileKey);
     }
   }, [config]);
+
+  // Set initial file key from fileInfo if available
+  useEffect(() => {
+    if (fileInfo && fileInfo.key !== 'unknown' && !fileKey) {
+      setFileKey(fileInfo.key);
+    }
+  }, [fileInfo, fileKey]);
 
   // Listen for selected node response
   useEffect(() => {
@@ -86,6 +95,11 @@ export function Setup() {
       return;
     }
 
+    if (!fileKey || fileKey.trim() === '') {
+      setError('Please enter the Figma file key');
+      return;
+    }
+
     // Check if same frame selected for both
     if (tvFrameId === phoneFrameId) {
       setError('TV and Phone cannot use the same frame');
@@ -95,7 +109,7 @@ export function Setup() {
     // Create configuration
     const newConfig: PrototypeConfig = {
       configVersion: '1.0.0',
-      fileKey: fileInfo.key,
+      fileKey: fileKey.trim(),
       fileName: fileInfo.name,
       devices: {
         tv: {
@@ -137,6 +151,27 @@ export function Setup() {
       )}
 
       <div className="setup-content">
+        <div className="device-card">
+          <div className="device-card-header">
+            <div className="device-icon">📄</div>
+            <h3>Figma File</h3>
+          </div>
+
+          <div className="device-card-body">
+            <label className="label">File Key</label>
+            <input
+              type="text"
+              className="input"
+              placeholder="Enter file key (e.g., Agv3YzAcZMv89cUwQmcrXA)"
+              value={fileKey}
+              onChange={(e) => setFileKey(e.target.value)}
+            />
+            <p className="help-text">
+              Get the file key from your Figma file URL: figma.com/file/<strong>[FILE_KEY]</strong>/...
+            </p>
+          </div>
+        </div>
+
         <div className="device-card">
           <div className="device-card-header">
             <div className="device-icon tv">📺</div>

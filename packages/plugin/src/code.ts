@@ -74,8 +74,19 @@ async function handleInit() {
     const config = await loadConfig();
     console.log('[Main Thread] Config loaded:', config ? 'found' : 'none');
 
+    // Get file key - in dev mode, figma.fileKey may be null
+    let fileKey = figma.fileKey;
+
+    // If fileKey is not available, show error to user
+    if (!fileKey) {
+      console.warn('[Main Thread] File key not available - plugin may be in dev mode');
+      // In production, figma.fileKey will be available
+      // For development, we'll use 'unknown' and show helpful error
+      fileKey = 'unknown';
+    }
+
     const fileInfo = {
-      key: figma.fileKey || 'unknown',
+      key: fileKey,
       name: figma.root.name,
     };
     console.log('[Main Thread] File info:', fileInfo);

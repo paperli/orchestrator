@@ -18,6 +18,36 @@ export function FigmaEmbed({ fileKey, nodeId, onNodeChange, onInteraction }: Fig
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Check for invalid file key
+  if (!fileKey || fileKey === 'unknown') {
+    return (
+      <div style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        padding: '40px',
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '24px' }}>⚠️</div>
+        <h2 style={{ margin: '0 0 16px 0' }}>File Key Not Available</h2>
+        <p style={{ margin: '0 0 24px 0', color: '#666', maxWidth: '500px' }}>
+          The Figma file key could not be retrieved. This usually happens when:
+        </p>
+        <ul style={{ textAlign: 'left', color: '#666', marginBottom: '24px' }}>
+          <li>The plugin is running in development mode</li>
+          <li>The file hasn't been saved to Figma cloud</li>
+        </ul>
+        <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
+          <strong>To fix:</strong> Save your Figma file to the cloud and reload the plugin.
+        </p>
+      </div>
+    );
+  }
+
   useEffect(() => {
     const iframe = iframeRef.current;
     if (!iframe) return;

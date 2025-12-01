@@ -99,6 +99,23 @@
   color: var(--figma-color-text);
 }
 
+.input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--figma-color-border);
+  border-radius: var(--radius-sm);
+  background: var(--figma-color-bg);
+  color: var(--figma-color-text);
+  font-size: var(--font-size-sm);
+  font-family: monospace;
+  margin-bottom: var(--spacing-xs);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--figma-color-bg-brand);
+}
+
 .frame-picker {
   margin-bottom: var(--spacing-sm);
 }
