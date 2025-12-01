@@ -12,7 +12,7 @@ import { handleGetFrames, handleGetPages, handleGetNodeInfo } from './lib/figma-
 console.log('[Main Thread] Starting plugin...');
 figma.showUI(__html__, {
   width: 400,
-  height: 600,
+  height: 700,
   themeColors: true,
 });
 console.log('[Main Thread] UI shown, waiting for INIT message');
