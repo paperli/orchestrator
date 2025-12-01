@@ -1,13 +1,14 @@
 .publish {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  flex: 1;
+  height: 100%;
+  overflow: hidden;
 }
 
 .publish-header {
   padding: var(--spacing-md) var(--spacing-lg);
   border-bottom: 1px solid var(--figma-color-border);
+  flex-shrink: 0;
 }
 
 .publish-header h2 {
@@ -26,8 +27,10 @@
   flex: 1;
   padding: var(--spacing-md);
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .publish-card {

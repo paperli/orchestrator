@@ -12,7 +12,7 @@
     ],
     "reasoning": "Required to publish multi-device configurations to orchestrator backend",
     "devAllowedDomains": [
-      "https://localhost:3001"
+      "http://localhost:3001"
     ]
   },
   "permissions": ["currentuser"]
