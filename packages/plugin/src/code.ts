@@ -9,14 +9,17 @@ import { loadConfig, saveConfig } from './lib/storage';
 import { handleGetFrames, handleGetPages, handleGetNodeInfo } from './lib/figma-utils';
 
 // Show the plugin UI
+console.log('[Main Thread] Starting plugin...');
 figma.showUI(__html__, {
   width: 400,
   height: 600,
   themeColors: true,
 });
+console.log('[Main Thread] UI shown, waiting for INIT message');
 
 // Message handler for UI → Main thread communication
 figma.ui.onmessage = async (msg: any) => {
+  console.log('[Main Thread] Received message:', msg.type);
   try {
     switch (msg.type) {
       case 'INIT':
@@ -66,19 +69,26 @@ figma.ui.onmessage = async (msg: any) => {
  * Initialize plugin - load existing config if available
  */
 async function handleInit() {
+  console.log('[Main Thread] handleInit called');
   try {
     const config = await loadConfig();
+    console.log('[Main Thread] Config loaded:', config ? 'found' : 'none');
+
     const fileInfo = {
       key: figma.fileKey || 'unknown',
       name: figma.root.name,
     };
+    console.log('[Main Thread] File info:', fileInfo);
 
-    figma.ui.postMessage({
+    const response = {
       type: 'INIT_SUCCESS',
       config,
       fileInfo,
-    });
+    };
+    console.log('[Main Thread] Sending INIT_SUCCESS');
+    figma.ui.postMessage(response);
   } catch (error) {
+    console.error('[Main Thread] Init error:', error);
     figma.ui.postMessage({
       type: 'INIT_ERROR',
       error: error instanceof Error ? error.message : 'Failed to initialize',

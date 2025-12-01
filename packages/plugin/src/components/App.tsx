@@ -22,13 +22,18 @@ export function App() {
   const { config, fileInfo, setConfig, setFileInfo } = usePluginStore();
 
   useEffect(() => {
+    console.log('[UI] App mounted, sending INIT message');
+
     // Initialize plugin
     sendMessage({ type: 'INIT' });
 
     // Set up message listeners
     const unsubscribe = onMessage(msg => {
+      console.log('[UI] Received message:', msg.type, msg);
+
       switch (msg.type) {
         case 'INIT_SUCCESS':
+          console.log('[UI] Init successful, config:', msg.config);
           setConfig(msg.config);
           setFileInfo(msg.fileInfo);
           setIsLoading(false);
@@ -42,11 +47,13 @@ export function App() {
           break;
 
         case 'INIT_ERROR':
+          console.error('[UI] Init error:', msg.error);
           setError(msg.error);
           setIsLoading(false);
           break;
 
         case 'ERROR':
+          console.error('[UI] Error:', msg.error);
           setError(msg.error);
           break;
       }
