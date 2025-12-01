@@ -8,12 +8,12 @@
   "ui": "dist/ui.html",
   "networkAccess": {
     "allowedDomains": [
-      "localhost:3001",
-      "*.your-backend-domain.com"
+      "https://*.your-backend-domain.com"
     ],
     "reasoning": "Required to publish multi-device configurations to orchestrator backend",
     "devAllowedDomains": [
-      "http://localhost:3001"
+      "http://localhost:3001",
+      "http://127.0.0.1:3001"
     ]
   },
   "permissions": ["currentuser"]
