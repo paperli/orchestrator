@@ -1,0 +1,54 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--figma-color-bg);
+}
+
+.app-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Loading and error states */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--figma-color-border);
+  border-top-color: var(--figma-color-bg-brand);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: var(--spacing-lg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-container p,
+.error-container p {
+  margin: 0;
+  color: var(--figma-color-text-secondary);
+}
+
+.error-container h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--figma-color-text-danger);
+}
+
+.error-container button {
+  margin-top: var(--spacing-lg);
+}

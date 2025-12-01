@@ -1,0 +1,44 @@
+.publish {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.publish-header {
+  padding: var(--spacing-xl) var(--spacing-lg);
+  border-bottom: 1px solid var(--figma-color-border);
+}
+
+.publish-header h2 {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.publish-header .description {
+  margin: 0;
+  color: var(--figma-color-text-secondary);
+}
+
+.publish-content {
+  flex: 1;
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+}
+
+.publish-card {
+  padding: var(--spacing-xl);
+  border: 1px solid var(--figma-color-border);
+  border-radius: var(--radius-lg);
+}
+
+.publish-card h3 {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.publish-card p {
+  margin: 0 0 var(--spacing-lg) 0;
+  color: var(--figma-color-text-secondary);
+}

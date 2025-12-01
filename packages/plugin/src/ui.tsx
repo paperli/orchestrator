@@ -1,0 +1,19 @@
+/**
+ * Figma Plugin UI Thread
+ * Runs in an iframe with React, no access to Figma API
+ */
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { App } from './components/App';
+import './styles/globals.css';
+
+const root = document.getElementById('root');
+
+if (root) {
+  ReactDOM.createRoot(root).render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+}

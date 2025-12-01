@@ -1,0 +1,20 @@
+{
+  "name": "Multiscreen Orchestrator",
+  "id": "0000000000000000000",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "networkAccess": {
+    "allowedDomains": [
+      "localhost:3001",
+      "*.your-backend-domain.com"
+    ],
+    "reasoning": "Required to publish multi-device configurations to orchestrator backend",
+    "devAllowedDomains": [
+      "http://localhost:3001"
+    ]
+  },
+  "permissions": ["currentuser"]
+}
