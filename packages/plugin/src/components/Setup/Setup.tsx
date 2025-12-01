@@ -216,9 +216,7 @@ export function Setup() {
             </p>
           </div>
         </div>
-      </div>
 
-      <div className="setup-footer">
         <button
           className="button-primary button-lg"
           disabled={!tvFrameId || !phoneFrameId}
