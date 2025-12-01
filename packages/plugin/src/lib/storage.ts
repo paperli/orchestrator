@@ -51,7 +51,8 @@ export async function saveConfig(config: PrototypeConfig): Promise<void> {
     const data = JSON.stringify(configWithVersion);
 
     // Check size limit (100 KB)
-    const sizeInBytes = new Blob([data]).size;
+    // Use string length * 2 as rough estimate (UTF-16 characters are 2 bytes)
+    const sizeInBytes = data.length * 2;
     if (sizeInBytes > 100 * 1024) {
       throw new Error(
         `Configuration too large: ${Math.round(sizeInBytes / 1024)} KB (max 100 KB)`
